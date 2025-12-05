@@ -1,38 +1,34 @@
-# Módulo de conexão com o Supabase
 import os
-from supabase import create_client, Client
-from dotenv import load_dotenv
 
-# Carrega as variáveis de ambiente
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError:
+    load_dotenv = None
+
+try:
+    from supabase import create_client
+except ModuleNotFoundError:
+    create_client = None
+
 
 class SupabaseConnection:
-  '''
-  Padrão de Projeto - Singleton
-  * Garante apenas uma instância em toda a aplicação
-  '''
-  _instance = None
-  # Type Hint
-  # * Garante o tipo de dado a ser atribuído a um atributo/variável
-  _client: Client = None
+    def __init__(self):
+        if load_dotenv is None:
+            raise ModuleNotFoundError(
+                "Pacote 'python-dotenv' não está instalado. Rode: `pip install python-dotenv`"
+            )
 
-  # new - cria a instância da classe
-  def __new__(cls):
-    if cls._instance is None:
-      cls._instance = super(SupabaseConnection, cls).__new__(cls)
-      cls._instance._init_connection()
-    return cls._instance
-  
-  def _init_connection(self):
-    supabase_url = os.getenv('SUPABASE_URL')
-    supabase_key = os.getenv('SUPABASE_KEY')
+        if create_client is None:
+            raise ModuleNotFoundError(
+                "Pacote 'supabase' não está instalado. Rode: `pip install supabase`"
+            )
 
-    if not supabase_url or not supabase_key:
-      raise ValueError('Erro nas variáveis de ambiente ❌')
+        load_dotenv()
 
-    self._client = create_client(supabase_url, supabase_key)
-    print('Conexão com Supabase ✅')
+        url = os.getenv("SUPABASE_URL")
+        key = os.getenv("SUPABASE_KEY")
 
-  @property
-  def client(self) -> Client: # Type Hint
-    return self._client
+        if not url or not key:
+            raise ValueError("Erro: SUPABASE_URL ou SUPABASE_KEY não definidos no .env")
+
+        self.client = create_client(url, key)

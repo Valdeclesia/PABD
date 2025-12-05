@@ -1,10 +1,10 @@
-from base_dao import BaseDAO
-from departamento import Departamento
+from .base_dao import BaseDAO
+from ..models.departamento import Departamento
 
 class DepartamentoDAO(BaseDAO):
     def __init__(self):
-        super().__init__("departamento") 
-        
+        super().__init__("departamento")
+
     def create_departamento(self, departamento: Departamento):
         return self.create(departamento.to_dict())
 

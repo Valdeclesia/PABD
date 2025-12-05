@@ -1,58 +1,62 @@
-from dao.funcionario_dao import FuncionarioDAO
-from dao.departamento_dao import DepartamentoDAO
-from models.funcionario import Funcionario
-from models.departamento import Departamento
+from empresa.dao.funcionario_dao import FuncionarioDAO
+from empresa.dao.departamento_dao import DepartamentoDAO
+from empresa.models.funcionario import Funcionario
+from empresa.models.departamento import Departamento
 
-def main():
-    funcionario_dao = FuncionarioDAO()
+
+def testar_departamentos():
+    print("\n=== TESTE: DEPARTAMENTOS ===")
+
     departamento_dao = DepartamentoDAO()
 
-    print("\n=== TESTANDO CRUD DEPARTAMENTO ===")
-
+    print("\n→ Criando departamento...")
     novo_dep = Departamento(id=None, nome="Tecnologia")
-    departamento_dao.create(novo_dep)
-    print("Departamento criado!")
+    print(departamento_dao.create_departamento(novo_dep))
 
-    print("Departamentos cadastrados:")
+    print("\n→ Lendo departamentos...")
     print(departamento_dao.read())
 
-    departamento_atualizado = Departamento(id=1, nome="TI e Inovação")
-    departamento_dao.update(departamento_atualizado)
-    print("Departamento atualizado!")
+    print("\n→ Atualizando departamento (id = 1)...")
+    dep_atualizado = Departamento(id=1, nome="TI e Inovação")
+    print(departamento_dao.update_departamento(1, dep_atualizado))
+
+    print("\n→ Lendo novamente...")
     print(departamento_dao.read())
 
 
-    print("\n=== TESTANDO CRUD FUNCIONÁRIO ===")
+def testar_funcionarios():
+    print("\n=== TESTE: FUNCIONÁRIOS ===")
 
-    novo_func = Funcionario(id=None, nome="Val", salario=3500, id_departamento=1)
-    funcionario_dao.create(novo_func)
-    print("Funcionário criado!")
+    funcionario_dao = FuncionarioDAO()
 
-    print("Funcionários cadastrados:")
+    print("\n→ Criando funcionário...")
+    novo_func = Funcionario(
+        id=None,
+        nome="Val",
+        salario=3500,
+        id_departamento=1
+    )
+    print(funcionario_dao.create_funcionario(novo_func))
+
+    print("\n→ Lendo funcionários...")
     print(funcionario_dao.read())
 
-    funcionario_atualizado = Funcionario(
+    print("\n→ Atualizando funcionário (id = 1)...")
+    func_atualizado = Funcionario(
         id=1,
         nome="Valdeclesia",
         salario=4000,
         id_departamento=1
     )
-    funcionario_dao.update(funcionario_atualizado)
-    print("Funcionário atualizado!")
+    print(funcionario_dao.update_funcionario(1, func_atualizado))
+
+    print("\n→ Lendo novamente...")
     print(funcionario_dao.read())
 
+
 if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-
-
-
-
+    testar_departamentos()
+    testar_funcionarios()
 
 
 """

@@ -1,14 +1,10 @@
 class Departamento:
-    def __init__(self, id=None, nome=None, sigla=None):
+    def __init__(self, id: int | None, nome: str):
         self.id = id
         self.nome = nome
-        self.sigla = sigla
 
     def to_dict(self):
         return {
-            "nome": self.nome,
-            "sigla": self.sigla
+            "id": self.id,
+            "nome": self.nome
         }
-
-    def __str__(self):
-        return f"Departamento(id={self.id}, nome={self.nome}, sigla={self.sigla})"

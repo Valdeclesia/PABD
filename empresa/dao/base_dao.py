@@ -1,4 +1,4 @@
-from database import SupabaseConnection
+from empresa.config.database import SupabaseConnection
 
 class BaseDAO:
     def __init__(self, table_name: str):
@@ -11,11 +11,9 @@ class BaseDAO:
 
     def read(self, filters: dict = None):
         query = self.connection.table(self.table).select("*")
-
         if filters:
             for key, value in filters.items():
                 query = query.eq(key, value)
-
         response = query.execute()
         return response.data
 
