@@ -7,9 +7,7 @@ class ControleDeBonificacoes:
   def __init__(self, total = 0):
     self._total = total
 
-  # registra - incrementa as bonificações dos funcionários
   def registra(self, obj):
-    # Verifica se obj é uma instância de funcionario
     if(isinstance(obj, Funcionario)):
       self._total += obj.get_bonificacao()
     else:

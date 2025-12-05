@@ -1,7 +1,61 @@
-## Programação com Acesso a Banco de Dados
-# Revisão de Orientação a Objetos
-# Prof. Guilherme Leal Santos
+from dao.funcionario_dao import FuncionarioDAO
+from dao.departamento_dao import DepartamentoDAO
+from models.funcionario import Funcionario
+from models.departamento import Departamento
 
+def main():
+    funcionario_dao = FuncionarioDAO()
+    departamento_dao = DepartamentoDAO()
+
+    print("\n=== TESTANDO CRUD DEPARTAMENTO ===")
+
+    novo_dep = Departamento(id=None, nome="Tecnologia")
+    departamento_dao.create(novo_dep)
+    print("Departamento criado!")
+
+    print("Departamentos cadastrados:")
+    print(departamento_dao.read())
+
+    departamento_atualizado = Departamento(id=1, nome="TI e Inovação")
+    departamento_dao.update(departamento_atualizado)
+    print("Departamento atualizado!")
+    print(departamento_dao.read())
+
+
+    print("\n=== TESTANDO CRUD FUNCIONÁRIO ===")
+
+    novo_func = Funcionario(id=None, nome="Val", salario=3500, id_departamento=1)
+    funcionario_dao.create(novo_func)
+    print("Funcionário criado!")
+
+    print("Funcionários cadastrados:")
+    print(funcionario_dao.read())
+
+    funcionario_atualizado = Funcionario(
+        id=1,
+        nome="Valdeclesia",
+        salario=4000,
+        id_departamento=1
+    )
+    funcionario_dao.update(funcionario_atualizado)
+    print("Funcionário atualizado!")
+    print(funcionario_dao.read())
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
+
+
+
+"""
 from conta import Conta
 from cliente import Cliente
 from funcionario.funcionario import Funcionario
@@ -16,6 +70,8 @@ print(f)
 g = Gerente('Reginaldo Rossi', '777.222.333-88', 250000, 1234, 10)
 print(g.get_bonificacao())
 print(g)
+
+"""
 
 #  cliente1 = Cliente("Elvis Presley", "111.222.333-44")
 # conta1 = Conta(cliente1, 1, 123, "elvis@gmail.com", 10000)
